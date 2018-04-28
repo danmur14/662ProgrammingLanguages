@@ -1,0 +1,62 @@
+// Tests
+*Main> evalAE (Num 2)
+2
+*Main> evalAE (Plus (Num 4) (Num 5))
+9
+*Main> evalAE (Minus (Num 4) (Num 5))
+*** Exception: negative number
+CallStack (from HasCallStack):
+  error, called at p0.hs:102:84 in main:Main
+*Main> evalAE (Minus (Num 5) (Num 5))
+0
+*Main> evalAE (Minus (Num 5) (Num 4))
+1
+*Main> evalAE (Mult (Num 5) (Num 4))
+20
+*Main> evalAE (Div (Num 5) (Num 4))
+1
+*Main> evalAE (Div (Num 5) (Num 0))
+*** Exception: divide by 0
+CallStack (from HasCallStack):
+  error, called at p0.hs:104:44 in main:Main
+*Main> evalAE (If0 (Num 0) (Plus (Num 3) (Num 4)) (Num 9))
+7
+*Main> evalAE (If0 (Num 1) (Plus (Num 3) (Num 4)) (Num 9))
+9
+*Main> evalAEMaybe (Num 2)
+Just 2
+*Main> evalAEMaybe (Plus (Num 4) (Num 5))
+Just 9
+*Main> evalAEMaybe (Minus (Num 4) (Num 5))
+Nothing
+*Main> evalAEMaybe (Minus (Num 5) (Num 5))
+Just 0
+*Main> evalAEMaybe (Mult (Num 5) (Num 4))
+Just 20
+*Main> evalAEMaybe (Div (Num 5) (Num 4))
+Just 1
+*Main> evalAEMaybe (Div (Num 5) (Num 0))
+Nothing
+*Main> evalAEMaybe (If0 (Num 0) (Plus (Num 3) (Num 4)) (Num 9))
+Just 7
+*Main> evalM (Num 2)
+Just 2
+*Main> evalM (Plus (Num 4) (Num 5))
+Just 9
+*Main> evalM (Minus (Num 4) (Num 5))
+Nothing
+*Main> evalM (Minus (Num 5) (Num 5))
+Just 0
+*Main> evalM (Mult (Num 5) (Num 4))
+Just 20
+*Main> evalM (Div (Num 5) (Num 4))
+Just 1
+*Main> evalM (Div (Num 5) (Num 0))
+Nothing
+*Main> evalM (If0 (Num 0) (Plus (Num 3) (Num 4)) (Num 9))
+Just 7
+*Main> interpAE "3 + 4 * 8"
+Just 35
+*Main> interpAE "if0 0 then 5 else 6"
+Just 5
+*Main>
